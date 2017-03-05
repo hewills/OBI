@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE>RPD Converter v1.0</TITLE>
+<!-- Browse for 
+      - file:   based on the HTMLDlgHelper class 
+                registered via C:\Windows\System32\mshtmled.dll
+                (.OpenFileDlg returns string)
+      - folder: based on the Shell.BrowseForFolder method
+                (returns the selected folder's Folder object)
+-->
+<HTA:APPLICATION 
+     APPLICATIONNAME="RPD Converter"
+     SCROLL="yes"
+     SINGLEINSTANCE="yes"
+     WINDOWSTATE="normal"
+	 ICON="C:/RPDConverter/oracle.ico"
+	 SHOWINTASKBAR="yes"
+>
+</HEAD>
+
+<script language="VBScript">
+
+'' Global State Variables ''''
+ Dim sStartPath, sStartFile, sFilter, sCaption
+ sStartPath = "C:"
+ sStartFile = sStartPath & "\filename"
+ sFilter    = "Oracle File (*.txt;*.udml;*.rpd)|*.txt;*.udml;*.rpd|" _
+	  & "All Files (*.*)|*.*|"
+	  
+  sCaption = "Choose a File:"
+'''''''''''''''''''''''''''''
+  
+'' Initial Settings '''''''''''
+Sub Window_onLoad
+    ' resize to quarter of screen area, centered
+    window.resizeTo screen.availWidth/2,screen.availHeight/2
+    window.moveTo screen.availWidth/4,screen.availHeight/4
+	self.Focus()
+
+End Sub
+'''''''''''''''''''''''''''''
+ 
+'' Browse to File '''''''''''
+Sub BrForFile_onclick
+    sBFF = Dlg.OpenFileDlg( CStr(sStartFile), , CStr(sFilter), CStr(sCaption))
+    If not sBFF = "" Then 
+      document.Copy_To_PC.txtfile.value = sBFF
+    End If
+	
+End Sub 
+'''''''''''''''''''''''''''''
+
+'' Start UDML File Conversion '''''''''''
+Sub StartUDML
+
+	'' Grab filepath from textbox
+	myPath = document.Copy_To_PC.txtfile.value
+	
+	if myPath = "" Then
+		myint = Msgbox("No file selected.",VbOkOnly,"Error")
+	Else
+		
+		myFile = Mid(myPath, InStrRev(myPath, "\") + 1, InStrRev(myPath, ".") - InStrRev(myPath, "\") - 1)
+		myFolder = Left(myPath, InStrRev(myPath, "\"))
+		myExt = "." & Right(myPath, Len(myPath) - InStrRev(myPath, "."))
+	
+		intAnswer = Msgbox("Convert " & myFile & myExt & " to UDML?", _
+			vbYesNo, "Convert File")
+	
+		If intAnswer = vbYes Then
+	
+			' saveFolder = PickFolder("c:\test\test\test\test\test\test")
+			saveFile = InputBox("Save filename as...")
+			
+			rpdconvert = "C:\Program Files\OBI Enterprise Edition Plus Client Tools\oraclebi\orahome\bifoundation\server\bin\nqudmlgen.exe"
+			udmlfile = document.Copy_To_PC.txtfile.value
+			saveFile = myFolder & saveFile
+
+		'Debug			
+		'Msgbox "cmd.exe /k " & Chr(34) & Chr(34) & rpdconvert & Chr(34) & " -P xsw21qaz -R " & Chr(34) & udmlfile & Chr(34) & " -O " & Chr(34) & saveFile & Chr(34) & Chr(34)
+			
+			Set objShell = CreateObject("Wscript.Shell")
+			objShell.run "cmd.exe /c " & Chr(34) & Chr(34) & rpdconvert & Chr(34) & " -P xsw21qaz -R " & Chr(34) & udmlfile & Chr(34) & " -O " & Chr(34) & saveFile & Chr(34) & Chr(34)
+
+		Else
+		'do nothing
+
+		End If
+	End If
+	
+End Sub	
+'''''''''''''''''''''''''''''
+
+'' Start RPD File Conversion '''''''''''
+Sub StartRPD
+
+	'' Grab filepath from textbox
+	myPath = document.Copy_To_PC.txtfile.value
+	
+	If myPath = "" Then
+		myint = Msgbox("No file selected.",VbOkOnly,"Error")
+	Else
+	
+		myFile = Mid(myPath, InStrRev(myPath, "\") + 1, InStrRev(myPath, ".") - InStrRev(myPath, "\") - 1)
+		myFolder = Left(myPath, InStrRev(myPath, "\"))
+		myExt = "." & Right(myPath, Len(myPath) - InStrRev(myPath, "."))
+	
+		intAnswer = Msgbox("Convert " & myFile & myExt & " to RPD?", _
+			vbYesNo, "Convert File")
+	
+		If intAnswer = vbYes Then
+	
+			' saveFolder = PickFolder("c:\test\test\test\test\test\test")
+			saveFile = InputBox("Save filename as...")
+		
+			rpdconvert = "C:\Program Files\OBI Enterprise Edition Plus Client Tools\oraclebi\orahome\bifoundation\server\bin\nqudmlexec.exe"
+			rpdfile = document.Copy_To_PC.txtfile.value
+			saveFile = myFolder & saveFile
+	
+			Set objShell = CreateObject("Wscript.Shell")
+			objShell.run "cmd.exe /c " & Chr(34) & Chr(34) & rpdconvert & Chr(34) & " -P xsw21qaz -I " & Chr(34) & rpdfile & Chr(34) & " -O "  & Chr(34) & saveFile & Chr(34) & Chr(34)
+    
+		Else
+			'do nothing
+		End If	
+	End If
+
+End Sub	
+'''''''''''''''''''''''''''''
+
+Function PickFolder(myFolder)
+    Dim shell, oFldr
+    Set shell = CreateObject("Shell.Application")
+    Set oFldr = shell.BrowseForFolder(0, "Choose a folder:", 0, myFolder)
+    'See MSDN "BROWSEINFO structure" for constants
+    If (Not oFldr Is Nothing) Then
+        PickFolder = oFldr.Self.Path
+    Else
+        PickFolder = ""
+    End If
+    Set shell = Nothing
+    Set oFldr = Nothing
+End Function
+
+'' Close and About button '''''''''''
+Sub ExitHTA
+	self.close()
+End Sub
+
+'''''''''''''''''''''''''''''
+
+</script>
+
+<body>
+<OBJECT id=Dlg classid="CLSID:3050F4E1-98B5-11CF-BB82-00AA00BDCE0B" width=0 height=0></OBJECT>
+<body STYLE="font:12 pt arial; color:white">
+<body bgcolor="#25383C"> 
+<b><font size="4">RPD Converter</font></b></p>
+
+<FORM  name="Copy_To_PC">
+<input style="width:700px;" type="text" id="txtfile" name="txtfile" /><br>
+<input type="button" value="Browse for File..."  id="BrForFile"><p>
+</FORM>
+
+<font size="2">Start Conversion to...</font></b><p>
+<input type="button" value="UDML" name="udml_button"  onClick="StartUDML">
+&nbsp;
+<input type="button" value="RPD" name="rpd_button"  onClick="StartRPD"><p>
+<br><br>
+<input type="button" value="Close" name="close_button"  onClick="ExitHTA">
+<p>
+<font size="1">v.1.0  2/2/2016</font>
+</body>
+</HTML>

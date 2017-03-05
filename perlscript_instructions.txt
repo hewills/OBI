@@ -1,0 +1,18 @@
+#How to Run Perl scripts Manually
+#----------------------------
+#Login to OBIprodstu server.
+#Note:  Scripts are saved in /home/oracle/bin. 
+#		Script error logs save to: /home/oracle/
+
+#To trunc/insert the OBI ROLES table.
+cd /sdc1/oracle/Middleware/Oracle_BI1/perl/bin
+./perl /home/oracle/bin/parsejazn.pl
+
+# --------------
+
+# To update the OBI AUDIT table (Requires one log name as a parameter).
+
+cd /sdc1/oracle/Middleware/Oracle_BI1/perl/bin
+./perl /home/oracle/bin/parseaudit.pl delete0.log
+./perl /home/oracle/bin/parseaudit.pl perm0.log
+
