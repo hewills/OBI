@@ -5,17 +5,18 @@
 This script can be used on the OBI servers to search an XML file or files, for a particular string.
 
 *Parameters:*  
+
+*all* - Include 'no matches'    
 ~~~
-all - Include 'no matches'    
-~~
 This parameter will return a list of ALL the file names searched.  
 Even if they don't contain a match to the string.  
-
 ~~~
-quiet - No screen ouput.  
+
+*quiet* - No screen ouput.  
 ~~~
 Normally the screen will print "File 1 of 2000".   
 This parameter will show nothing as it runs.  
+~~~
 
 Wildcards available at prompts: (http://docs.python.org/2/library/re.html)  
 ~~~
