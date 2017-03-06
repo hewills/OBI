@@ -1,18 +1,18 @@
-# OBI
+# OBI scripts
 
 ## python searchfiles.py
 
 This script can be used on the OBI servers to search an XML file or files, for a particular string.
 
-*Parameters:*  
+**Parameters:**  
 
-*all* - Include 'no matches'    
+**all** - Include 'no matches'    
 ~~~
 This parameter will return a list of ALL the file names searched.  
 Even if they don't contain a match to the string.  
 ~~~
 
-*quiet* - No screen ouput.  
+**quiet** - No screen ouput.  
 ~~~
 Normally the screen will print "File 1 of 2000".   
 This parameter will show nothing as it runs.  
@@ -25,8 +25,7 @@ Wildcards available at prompts: (http://docs.python.org/2/library/re.html)
 * - matches 0 or more instances of the previous element.  
 ~~~
 
-*To Run:* 
-
+**To Run:**  
 ~~~
 1. Browse to /sdc1/oracle/  
 2. At the prompt:  python searchfiles.py    
@@ -51,18 +50,21 @@ End Search Results
 
 ===
 
-## perl parseaudit
+## Audit scripts (parsejazn.pl and parseaudit.pl)
 
 Scripts are saved in /home/oracle/bin.  
 Script error logs save to /home/oracle/  
 
-*To trunc/insert the custom OBI roles table* 
+**To trunc/insert the custom OBI roles table**
+Parse OBI security file (system-jazn-data.xml), and write roles to a db table.    
 ~~~
 cd /sdc1/oracle/Middleware/Oracle_BI1/perl/bin  
 ./perl /home/oracle/bin/parsejazn.pl  
 ~~~
 
-*To update the custom OBI audit table (Requires one log name as a parameter).*   
+**To update the custom OBI audit table (Requires one log name as a parameter).**  
+Parse oracle ACL (Access Control List) log and write to a db table.  
+ACL is setup to capture OBIEE catalog changes.   
 ~~~
 cd /sdc1/oracle/Middleware/Oracle_BI1/perl/bin
 ./perl /home/oracle/bin/parseaudit.pl delete0.log
@@ -71,14 +73,15 @@ cd /sdc1/oracle/Middleware/Oracle_BI1/perl/bin
 
 ===
 
-# RPD_Convert.hta
+## RPD_Convert.hta
 
-This program converts RPD binary files into UML, and vice-versa.  
+This program converts oracle RPD binary files into UML, and vice-versa.  
 
 ===
 
-# obicheck.pl
+## obicheck.pl
 
-This script checks the cpu load on a server, and sends an email once a certain limit is reached.  
+This script checks the cpu load on a unix server, and sends an email if a certain limit is reached.  
+Script is schedule via crontab.  
 
 ===
