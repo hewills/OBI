@@ -33,7 +33,7 @@ Wildcards available at prompts: (http://docs.python.org/2/library/re.html)
 2. At the prompt:  **python searchfiles.py** (optional parameter(s): quiet all)   
 3. You will then be prompted for **starting directory**, **file name**, and **search string**  
 *Example* Starting Directory: **/sdc1/oracle/Middleware**  *(it does a recursive searching starting here)*    
-*Example File Name*: ** *.xml**
+*Example File Name*: *.xml  
 *Example Search String*: **HR/Finance**  
 
 The results are sent to a text file, saved in the **'Starting Directory'** you entered.  
