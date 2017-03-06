@@ -3,7 +3,7 @@
 ## searchfiles.py
 
 This script can be used on the OBI servers to search an XML file or files, for a particular string.  
-Command: *python searchfiles.py** <parameters>**  
+Command: **python searchfiles.py** *<parameters>*
 
 **Parameters:**  
 
@@ -30,12 +30,11 @@ Wildcards available at prompts: (http://docs.python.org/2/library/re.html)
 
 **To Run:**  
 1. Browse to /sdc1/oracle/  
-2. At the prompt:  **python searchfiles.py**    
-				OR if using a parameter: python searchfiles.py all  OR  python searchfiles.py quiet  
+2. At the prompt:  **python searchfiles.py** (optional parameter(s): quiet all)   
 3. You will then be prompted for **starting directory**, **file name**, and **search string**  
-*Example* Starting Directory: /sdc1/oracle/Middleware  **(it does a recursive searching starting here) ** 
-*Example File Name*: *.xml  
-*Example Search String*: HR/Finance  
+*Example* Starting Directory: **/sdc1/oracle/Middleware**  *(it does a recursive searching starting here)*    
+*Example File Name*: ** *.xml**
+*Example Search String*: **HR/Finance**  
 
 The results are sent to a text file, saved in the **'Starting Directory'** you entered.  
 Example of what gets returned in the text file:  
@@ -57,7 +56,7 @@ End Search Results
 Scripts are saved in /home/oracle/bin.  
 Script error logs save to /home/oracle/  
 
-**To trunc/insert the custom OBI roles table**
+**To trunc/insert the custom OBI roles table**  
 Parse OBI security file (system-jazn-data.xml), and write roles to a db table.    
 ~~~
 cd /sdc1/oracle/Middleware/Oracle_BI1/perl/bin  
