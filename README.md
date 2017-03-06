@@ -1,22 +1,25 @@
 # OBI scripts
 
-## python searchfiles.py
+## searchfiles.py
 
-This script can be used on the OBI servers to search an XML file or files, for a particular string.
+This script can be used on the OBI servers to search an XML file or files, for a particular string.  
+Command: *python searchfiles.py** <parameters>**  
 
 **Parameters:**  
 
-**all** - Include 'no matches'    
+**all** - Include 'no matches'  
+~~~
+python searchfiles.py all   
 ~~~
 This parameter will return a list of ALL the file names searched.  
 Even if they don't contain a match to the string.  
-~~~
 
 **quiet** - No screen ouput.  
 ~~~
-Normally the screen will print "File 1 of 2000".   
-This parameter will show nothing as it runs.  
+python searchfiles.py quiet   
 ~~~
+Normally the screen will print "File 1 of xxx".  
+This parameter will show nothing as it runs.  
 
 Wildcards available at prompts: (http://docs.python.org/2/library/re.html)  
 ~~~
@@ -26,21 +29,20 @@ Wildcards available at prompts: (http://docs.python.org/2/library/re.html)
 ~~~
 
 **To Run:**  
-~~~
 1. Browse to /sdc1/oracle/  
-2. At the prompt:  python searchfiles.py    
+2. At the prompt:  **python searchfiles.py**    
 				OR if using a parameter: python searchfiles.py all  OR  python searchfiles.py quiet  
-3. You will then be prompted for starting directory, file name, and search string--  
-Example Starting Directory: /sdc1/oracle/Middleware  (it does a recursive searching starting here)  
-Example File Name: *.xml  
-Example Search String: HR/Finance  
-~~~
+3. You will then be prompted for **starting directory**, **file name**, and **search string**  
+*Example* Starting Directory: /sdc1/oracle/Middleware  **(it does a recursive searching starting here) ** 
+*Example File Name*: *.xml  
+*Example Search String*: HR/Finance  
 
-The results are sent to a text file, saved in the 'Starting Directory' you entered.  
+The results are sent to a text file, saved in the **'Starting Directory'** you entered.  
 Example of what gets returned in the text file:  
 
 ~~~
-Results for /sdc1/oracle/Middleware/hsu_custom/customMessages/l_en/CompanyName.xml: 
+Results for /sdc1/oracle/Middleware/hsu_custom/customMessages/l_en/CompanyName.xml:  
+
 Line #1 Found: 	<WebMessage name="kmsgHeaderSearchCaption"><TEXT>HR/Finance Refresh: 
 08/30/2013 08:12:13AM&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;Student Refresh: 08/30/2013 08:09:13AM
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Search</TEXT>
